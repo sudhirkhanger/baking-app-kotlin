@@ -34,7 +34,7 @@ class NetworkUtils {
                 scanner.useDelimiter("\\A")
 
                 val hasInput = scanner.hasNext()
-                if (hasInput) return scanner.next() else return null
+                return if (hasInput) scanner.next() else null
             } finally {
                 urlConnection.disconnect()
             }

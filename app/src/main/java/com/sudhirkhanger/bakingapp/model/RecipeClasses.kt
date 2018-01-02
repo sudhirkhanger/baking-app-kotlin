@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sudhirkhanger.bakingapp
+package com.sudhirkhanger.bakingapp.model
 
 class Recipe(val id: Int,
              val name: String,

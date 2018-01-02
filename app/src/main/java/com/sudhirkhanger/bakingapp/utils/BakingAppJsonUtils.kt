@@ -16,9 +16,9 @@
 
 package com.sudhirkhanger.bakingapp.utils
 
-import com.sudhirkhanger.bakingapp.Ingredients
-import com.sudhirkhanger.bakingapp.Recipe
-import com.sudhirkhanger.bakingapp.Steps
+import com.sudhirkhanger.bakingapp.model.Ingredients
+import com.sudhirkhanger.bakingapp.model.Recipe
+import com.sudhirkhanger.bakingapp.model.Steps
 import org.json.JSONArray
 
 

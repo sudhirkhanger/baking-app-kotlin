@@ -19,30 +19,46 @@ package com.sudhirkhanger.bakingapp
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import com.sudhirkhanger.bakingapp.model.Recipe
+import com.sudhirkhanger.bakingapp.model.RecipeAdapter
 import com.sudhirkhanger.bakingapp.utils.BakingAppJsonUtils
 import com.sudhirkhanger.bakingapp.utils.NetworkUtils
 import java.net.URL
 
 /**
  * A simple [Fragment] subclass.
+ * https://github.com/antoniolg/Kotlin-for-Android-Developers
  */
 class MainActivityFragment : Fragment() {
+
+    lateinit var recyclerView: RecyclerView
+    lateinit var recipeAdapter: RecipeAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main_activity, container, false)
 
+        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview_recipe)
+        recyclerView.layoutManager = LinearLayoutManager(
+                activity, LinearLayout.VERTICAL, false)
+        recipeAdapter = RecipeAdapter(mutableListOf())
+        recyclerView.adapter = recipeAdapter
+
         GetRecipesTask().execute()
 
         return view
     }
 
-    class GetRecipesTask : AsyncTask<Unit, Unit, MutableList<Recipe>>() {
+    // https://github.com/irontec/android-kotlin-samples
+    inner class GetRecipesTask : AsyncTask<Unit, Unit, MutableList<Recipe>>() {
 
         override fun doInBackground(vararg params: Unit?): MutableList<Recipe> {
             val url = URL("https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json")
@@ -53,7 +69,9 @@ class MainActivityFragment : Fragment() {
 
         override fun onPostExecute(result: MutableList<Recipe>?) {
             super.onPostExecute(result)
-            Log.e("MainActivityFragment", result?.get(0)?.name)
+            recipeAdapter.recipes.clear()
+            recipeAdapter.recipes.addAll(result as MutableList<Recipe>)
+            recipeAdapter.notifyDataSetChanged()
         }
     }
 }
