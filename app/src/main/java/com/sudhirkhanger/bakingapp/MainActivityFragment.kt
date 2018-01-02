@@ -16,13 +16,16 @@
 
 package com.sudhirkhanger.bakingapp
 
-
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import com.sudhirkhanger.bakingapp.utils.BakingAppJsonUtils
+import com.sudhirkhanger.bakingapp.utils.NetworkUtils
+import java.net.URL
 
 /**
  * A simple [Fragment] subclass.
@@ -32,6 +35,25 @@ class MainActivityFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_activity, container, false)
+        val view = inflater.inflate(R.layout.fragment_main_activity, container, false)
+
+        GetRecipesTask().execute()
+
+        return view
+    }
+
+    class GetRecipesTask : AsyncTask<Unit, Unit, MutableList<Recipe>>() {
+
+        override fun doInBackground(vararg params: Unit?): MutableList<Recipe> {
+            val url = URL("https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json")
+            val recipeJson = NetworkUtils.getResponseFromHttpUrl(url)
+            val recipes = BakingAppJsonUtils.extractRecipeFromJson(recipeJson)
+            return recipes
+        }
+
+        override fun onPostExecute(result: MutableList<Recipe>?) {
+            super.onPostExecute(result)
+            Log.e("MainActivityFragment", result?.get(0)?.name)
+        }
     }
 }
