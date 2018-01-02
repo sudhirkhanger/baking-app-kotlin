@@ -12,7 +12,9 @@
 	to adhere to the Udacity Honor Code may result in the cancellation of my
 	enrollment.
 
-[Full text](https://udacity.zendesk.com/hc/en-us/articles/210667103-What-is-the-Udacity-Honor-Code-)
+[Udacity Honor Code full text](https://udacity.zendesk.com/hc/en-us/articles/210667103-What-is-the-Udacity-Honor-Code-)
+
+---
 
     Copyright 2018 Sudhir Khanger
 
