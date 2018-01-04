@@ -26,6 +26,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.sudhirkhanger.bakingapp.model.Recipe
 import com.sudhirkhanger.bakingapp.model.RecipeAdapter
 import com.sudhirkhanger.bakingapp.utils.BakingAppJsonUtils
@@ -49,7 +50,12 @@ class MainActivityFragment : Fragment() {
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview_recipe)
         recyclerView.layoutManager = LinearLayoutManager(
                 activity, LinearLayout.VERTICAL, false)
-        recipeAdapter = RecipeAdapter(mutableListOf())
+        recipeAdapter = RecipeAdapter(mutableListOf(),
+                object : RecipeAdapter.OnItemClickListener {
+                    override fun invoke(recipe: Recipe) {
+                        Log.e("MainActivityFragment", recipe.name)
+                    }
+                })
         recyclerView.adapter = recipeAdapter
 
         GetRecipesTask().execute()

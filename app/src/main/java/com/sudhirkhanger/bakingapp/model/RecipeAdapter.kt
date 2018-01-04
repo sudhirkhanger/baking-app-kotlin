@@ -24,24 +24,37 @@ import android.widget.TextView
 import com.sudhirkhanger.bakingapp.R
 
 // https://medium.com/@paul.allies/kotlin-with-recyclerview-1637145b170f
-class RecipeAdapter(val recipes: MutableList<Recipe>) :
+class RecipeAdapter(val recipes: MutableList<Recipe>,
+                    private val itemClick: RecipeAdapter.OnItemClickListener) :
         RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
+    interface OnItemClickListener {
+        operator fun invoke(recipe: Recipe)
+    }
+
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        holder.recipeName.text = recipes.get(position).name
+        holder.bindRecipe(recipes[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecipeViewHolder {
         val view = LayoutInflater.from(parent?.context)
                 .inflate(R.layout.recipe_list_item, parent, false)
-        return RecipeViewHolder(view)
+        return RecipeViewHolder(view, itemClick)
     }
 
     override fun getItemCount(): Int {
         return recipes.size
     }
 
-    class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class RecipeViewHolder(view: View, private val itemClick: OnItemClickListener)
+        : RecyclerView.ViewHolder(view) {
         val recipeName = view.findViewById<TextView>(R.id.textview_recipe)
+
+        fun bindRecipe(recipe: Recipe) {
+            with(recipe) {
+                recipeName.text = name
+                itemView.setOnClickListener { itemClick(this) }
+            }
+        }
     }
 }
