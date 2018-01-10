@@ -25,13 +25,18 @@ import com.sudhirkhanger.bakingapp.R
 import com.sudhirkhanger.bakingapp.model.Ingredients
 import com.sudhirkhanger.bakingapp.model.Steps
 
-
-class DetailRecipeAdapter(private val items: MutableList<Any>) :
+// https://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView
+class DetailRecipeAdapter(private val items: MutableList<Any>,
+                          private val itemClick: OnItemClickListener) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val INGREDIENT_VIEW = 0
         const val STEP_VIEW = 1
+    }
+
+    interface OnItemClickListener {
+        operator fun invoke(step: Steps)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
@@ -45,7 +50,7 @@ class DetailRecipeAdapter(private val items: MutableList<Any>) :
             STEP_VIEW -> {
                 val view = LayoutInflater.from(parent?.context)
                         .inflate(R.layout.recipe_list_item, parent, false)
-                return StepViewHolder(view)
+                return StepViewHolder(view, itemClick)
             }
             else -> throw IllegalArgumentException("view type is not correct")
         }
@@ -77,7 +82,7 @@ class DetailRecipeAdapter(private val items: MutableList<Any>) :
     }
 
     class IngredientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextView = itemView.findViewById<TextView>(R.id.textview_recipe)
+        private val titleTextView = itemView.findViewById<TextView>(R.id.textview_recipe)
 
         fun bindIngredient(ingredient: Ingredients) {
             with(ingredient) {
@@ -86,12 +91,14 @@ class DetailRecipeAdapter(private val items: MutableList<Any>) :
         }
     }
 
-    class StepViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextView = itemView.findViewById<TextView>(R.id.textview_recipe)
+    class StepViewHolder(itemView: View, private val itemClick: OnItemClickListener) :
+            RecyclerView.ViewHolder(itemView) {
+        private val titleTextView = itemView.findViewById<TextView>(R.id.textview_recipe)
 
         fun bindStep(step: Steps) {
             with(step) {
                 titleTextView.text = shortDescription
+                itemView.setOnClickListener { itemClick(this) }
             }
         }
     }

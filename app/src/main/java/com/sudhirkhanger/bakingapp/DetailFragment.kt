@@ -16,8 +16,7 @@
 
 package com.sudhirkhanger.bakingapp
 
-
-import android.content.Intent.getIntent
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -29,11 +28,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.sudhirkhanger.bakingapp.adapter.DetailRecipeAdapter
 import com.sudhirkhanger.bakingapp.model.Recipe
+import com.sudhirkhanger.bakingapp.model.Steps
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class DetailFragment : Fragment() {
 
     lateinit var detailRecyclerView: RecyclerView
@@ -46,17 +42,21 @@ class DetailFragment : Fragment() {
 
         val recipe = activity?.intent?.extras?.getParcelable(MainActivityFragment.KEY_RECIPE) as Recipe
 
-        detailRecyclerView = view.findViewById<RecyclerView>(R.id.recyclerview_detail)
+        detailRecyclerView = view.findViewById(R.id.recyclerview_detail)
         detailRecyclerView.layoutManager = LinearLayoutManager(
                 activity, LinearLayout.VERTICAL, false)
 
-        detailRecipeAdapter = DetailRecipeAdapter(convertRecipeToList(recipe))
+        detailRecipeAdapter = DetailRecipeAdapter(convertRecipeToList(recipe),
+                object : DetailRecipeAdapter.OnItemClickListener {
+                    override fun invoke(step: Steps) {
+                        Log.e("DetailFragment", "step ${step.shortDescription}")
+                    }
+                })
         detailRecyclerView.adapter = detailRecipeAdapter
-
         return view
     }
 
-    fun convertRecipeToList(recipe: Recipe): MutableList<Any> {
+    private fun convertRecipeToList(recipe: Recipe): MutableList<Any> {
         val list = mutableListOf<Any>()
 
         (0 until recipe.ingredients.size).forEach { list.add(recipe.ingredients[it]) }
