@@ -26,11 +26,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.sudhirkhanger.bakingapp.MainActivityFragment.Companion.KEY_RECIPE
 import com.sudhirkhanger.bakingapp.adapter.DetailRecipeAdapter
 import com.sudhirkhanger.bakingapp.model.Recipe
 import com.sudhirkhanger.bakingapp.model.Steps
 
 class DetailFragment : Fragment() {
+
+        companion object {
+        const val KEY_STEP = "step_object"
+    }
 
     lateinit var detailRecyclerView: RecyclerView
     lateinit var detailRecipeAdapter: DetailRecipeAdapter
@@ -49,7 +54,9 @@ class DetailFragment : Fragment() {
         detailRecipeAdapter = DetailRecipeAdapter(convertRecipeToList(recipe),
                 object : DetailRecipeAdapter.OnItemClickListener {
                     override fun invoke(step: Steps) {
-                        Log.e("DetailFragment", "step ${step.shortDescription}")
+                        val stepActivityIntent = Intent(activity, StepActivity::class.java)
+                        stepActivityIntent.putExtra(KEY_STEP, step)
+                        startActivity(stepActivityIntent)
                     }
                 })
         detailRecyclerView.adapter = detailRecipeAdapter
