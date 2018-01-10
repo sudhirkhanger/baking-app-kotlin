@@ -16,6 +16,7 @@
 
 package com.sudhirkhanger.bakingapp
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -39,6 +40,10 @@ import java.net.URL
  */
 class MainActivityFragment : Fragment() {
 
+    companion object {
+        const val KEY_RECIPE = "recipe_object"
+    }
+
     lateinit var recyclerView: RecyclerView
     lateinit var recipeAdapter: RecipeAdapter
 
@@ -53,7 +58,9 @@ class MainActivityFragment : Fragment() {
         recipeAdapter = RecipeAdapter(mutableListOf(),
                 object : RecipeAdapter.OnItemClickListener {
                     override fun invoke(recipe: Recipe) {
-                        Log.e("MainActivityFragment", recipe.name)
+                        val detailActivityIntent = Intent(activity, DetailActivity::class.java)
+                        detailActivityIntent.putExtra(KEY_RECIPE, recipe)
+                        startActivity(detailActivityIntent)
                     }
                 })
         recyclerView.adapter = recipeAdapter

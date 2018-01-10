@@ -16,19 +16,30 @@
 
 package com.sudhirkhanger.bakingapp.model
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@SuppressLint("ParcelCreator")
+@Parcelize
 class Recipe(val id: Int,
              val name: String,
              val ingredients: MutableList<Ingredients>,
              val steps: MutableList<Steps>,
              val servings: Int,
-             val image: String)
+             val image: String) : Parcelable
 
+
+@SuppressLint("ParcelCreator")
+@Parcelize
 class Ingredients(val quantity: Int,
                   val measure: String,
-                  val ingredient: String)
+                  val ingredient: String) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 class Steps(val id: Int,
             val shortDescription: String,
             val description: String,
             val videoUrl: String,
-            val thumbnailUrl: String)
+            val thumbnailUrl: String) : Parcelable
