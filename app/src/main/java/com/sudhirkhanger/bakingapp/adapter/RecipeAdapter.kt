@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sudhirkhanger.bakingapp.model
+package com.sudhirkhanger.bakingapp.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -22,10 +22,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.sudhirkhanger.bakingapp.R
+import com.sudhirkhanger.bakingapp.model.Recipe
 
 // https://medium.com/@paul.allies/kotlin-with-recyclerview-1637145b170f
 class RecipeAdapter(val recipes: MutableList<Recipe>,
-                    private val itemClick: RecipeAdapter.OnItemClickListener) :
+                    private val itemClick: OnItemClickListener) :
         RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     interface OnItemClickListener {

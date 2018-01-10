@@ -22,14 +22,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
 import com.sudhirkhanger.bakingapp.model.Recipe
-import com.sudhirkhanger.bakingapp.model.RecipeAdapter
+import com.sudhirkhanger.bakingapp.adapter.RecipeAdapter
 import com.sudhirkhanger.bakingapp.utils.BakingAppJsonUtils
 import com.sudhirkhanger.bakingapp.utils.NetworkUtils
 import java.net.URL
