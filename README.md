@@ -21,10 +21,11 @@
 * [android-RecyclerView](https://github.com/googlesamples/android-RecyclerView)
 * [Kotlin-for-Android-Developers](https://github.com/antoniolg/Kotlin-for-Android-Developers)
 * [android-kotlin-samples](https://github.com/irontec/android-kotlin-samples)
+* [Media streaming with ExoPlayer](https://codelabs.developers.google.com/codelabs/exoplayer-intro/index.html?index=..%2F..%2Findex#2)
 
 ---
 
-    Copyright 2018 Sudhir Khanger
+    copyright 2018 Sudhir Khanger
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
