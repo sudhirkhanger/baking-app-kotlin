@@ -18,11 +18,20 @@ package com.sudhirkhanger.bakingapp
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.sudhirkhanger.bakingapp.DetailActivity.Companion.KEY_STEP_OBJECT
 
 class StepActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_step)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                    .beginTransaction()
+                    .add(R.id.step_activity_container,
+                            StepFragment.newInstance(intent.extras.getParcelable(KEY_STEP_OBJECT)))
+                    .commit()
+        }
     }
 }

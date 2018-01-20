@@ -14,11 +14,11 @@
   ~ limitations under the License.
   -->
 
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:id="@+id/mainActivityFragment"--><!--android:name="com.sudhirkhanger.bakingapp.StepFragment"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--tools:layout="@layout/fragment_step" />-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainActivityFragment"
-    android:name="com.sudhirkhanger.bakingapp.StepFragment"
+    android:id="@+id/step_activity_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout="@layout/fragment_step" />
+    tools:context=".StepActivity" />

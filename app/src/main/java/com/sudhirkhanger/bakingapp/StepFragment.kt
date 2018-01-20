@@ -17,7 +17,6 @@
 package com.sudhirkhanger.bakingapp
 
 import android.net.Uri
-import android.nfc.Tag
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.TextUtils
@@ -36,6 +35,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import com.sudhirkhanger.bakingapp.DetailActivity.Companion.KEY_STEP_OBJECT
 import com.sudhirkhanger.bakingapp.model.Steps
 
 class StepFragment : Fragment() {
@@ -43,11 +43,21 @@ class StepFragment : Fragment() {
     companion object {
         private const val TAG = "StepFragment"
         private const val PLAYBACK_POSITION = "playbackPosition"
+        private const val STEP_ARGS = "step_args"
+
+        fun newInstance(step: Steps?): StepFragment {
+            val stepFragment = StepFragment()
+            val args = Bundle()
+            Log.e(TAG, "newInstance ${step?.shortDescription}")
+            args.putParcelable(STEP_ARGS, step)
+            stepFragment.arguments = args
+            return stepFragment
+        }
     }
 
+    private var step: Steps? = null
     private lateinit var player: SimpleExoPlayer
     private lateinit var playerView: SimpleExoPlayerView
-    private lateinit var step: Steps
     private lateinit var uri: Uri
     private var playWhenReady: Boolean = true
     private var currentWindow: Int = 0
@@ -56,10 +66,12 @@ class StepFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_step, container, false)
-        step = activity?.intent?.extras?.getParcelable(DetailFragment.KEY_STEP) as Steps
+        val args = arguments
+        step = args?.getParcelable(STEP_ARGS)
+        Log.e(TAG, step?.shortDescription ?: "onCreateView null")
         playerView = view.findViewById(R.id.video_view)
-        val desc: TextView = view.findViewById(R.id.desc)
-        desc.text = step.description
+        val desc: TextView = view.findViewById(R.id.desc) as TextView
+        desc.text = step?.description
         return view
     }
 
@@ -76,8 +88,8 @@ class StepFragment : Fragment() {
             player.seekTo(currentWindow, playbackPosition)
         }
 
-        if (!TextUtils.isEmpty(step.videoUrl)) {
-            uri = Uri.parse(step.videoUrl)
+        if (!TextUtils.isEmpty(step?.videoUrl)) {
+            uri = Uri.parse(step?.videoUrl)
             val mediaSource: MediaSource = buildMediaSource(uri)
             player.prepare(mediaSource)
         }
@@ -98,7 +110,7 @@ class StepFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        hideSystemUI()
+//        hideSystemUI()
         if (Util.SDK_INT <= 23) {
             Log.e(TAG, "onResume")
             initializePlayer()

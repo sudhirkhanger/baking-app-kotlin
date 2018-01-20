@@ -16,13 +16,56 @@
 
 package com.sudhirkhanger.bakingapp
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
+import android.util.Log
+import android.widget.FrameLayout
+import com.sudhirkhanger.bakingapp.DetailActivity.Companion.KEY_STEP_OBJECT
+import com.sudhirkhanger.bakingapp.model.Steps
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), DetailFragment.OnStepSelectedInterface {
+
+    companion object {
+        private const val TAG = "DetailActivity"
+        private const val FRAGMENT_STEP = "step_fragment"
+        const val KEY_STEP_OBJECT = "step_object_key"
+    }
+
+    private var isTwoPane = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        if (findViewById<FrameLayout>(R.id.step_detail_container) != null) {
+            Log.e(TAG, "Tablet layout displayed")
+            isTwoPane = true
+
+            if (savedInstanceState == null) {
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.step_detail_container,
+                                StepFragment.newInstance(null),
+                                "step_fragment")
+                        .commit()
+            }
+        } else {
+            isTwoPane = false
+        }
+    }
+
+    override fun onStepSelected(step: Steps) {
+        if (isTwoPane) {
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.step_detail_container, StepFragment.newInstance(step), FRAGMENT_STEP)
+                    .commit()
+        } else {
+            val stepActivityIntent = Intent(this, StepActivity::class.java)
+            stepActivityIntent.putExtra(KEY_STEP_OBJECT, step)
+            startActivity(stepActivityIntent)
+        }
     }
 }

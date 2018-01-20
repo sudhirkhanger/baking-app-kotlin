@@ -16,29 +16,37 @@
 
 package com.sudhirkhanger.bakingapp
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.sudhirkhanger.bakingapp.MainActivityFragment.Companion.KEY_RECIPE
 import com.sudhirkhanger.bakingapp.adapter.DetailRecipeAdapter
 import com.sudhirkhanger.bakingapp.model.Recipe
 import com.sudhirkhanger.bakingapp.model.Steps
 
 class DetailFragment : Fragment() {
 
-        companion object {
-        const val KEY_STEP = "step_object"
-    }
-
     lateinit var detailRecyclerView: RecyclerView
     lateinit var detailRecipeAdapter: DetailRecipeAdapter
+    lateinit var onStepSelectedListener: OnStepSelectedInterface
+
+    public interface OnStepSelectedInterface {
+        public fun onStepSelected(step: Steps)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is OnStepSelectedInterface)
+            onStepSelectedListener = context
+        else
+            throw ClassCastException("${context.toString()} must implement " +
+                    "DetailFragment.OnStepSelectedInterface")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,9 +62,7 @@ class DetailFragment : Fragment() {
         detailRecipeAdapter = DetailRecipeAdapter(convertRecipeToList(recipe),
                 object : DetailRecipeAdapter.OnItemClickListener {
                     override fun invoke(step: Steps) {
-                        val stepActivityIntent = Intent(activity, StepActivity::class.java)
-                        stepActivityIntent.putExtra(KEY_STEP, step)
-                        startActivity(stepActivityIntent)
+                        onStepSelectedListener.onStepSelected(step)
                     }
                 })
         detailRecyclerView.adapter = detailRecipeAdapter

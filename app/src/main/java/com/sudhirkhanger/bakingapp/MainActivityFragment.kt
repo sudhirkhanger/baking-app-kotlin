@@ -33,7 +33,6 @@ import com.sudhirkhanger.bakingapp.utils.NetworkUtils
 import java.net.URL
 
 /**
- * A simple [Fragment] subclass.
  * https://github.com/antoniolg/Kotlin-for-Android-Developers
  */
 class MainActivityFragment : Fragment() {
