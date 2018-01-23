@@ -22,6 +22,7 @@
 * [Kotlin-for-Android-Developers](https://github.com/antoniolg/Kotlin-for-Android-Developers)
 * [android-kotlin-samples](https://github.com/irontec/android-kotlin-samples)
 * [Media streaming with ExoPlayer](https://codelabs.developers.google.com/codelabs/exoplayer-intro/index.html?index=..%2F..%2Findex#2)
+* [widget_sample](https://github.com/popnfresh234/widget_sample)
 
 ---
 
