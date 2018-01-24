@@ -110,7 +110,7 @@ class StepFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        hideSystemUI()
+        hideSystemUI()
         if (Util.SDK_INT <= 23) {
             Log.e(TAG, "onResume")
             initializePlayer()
