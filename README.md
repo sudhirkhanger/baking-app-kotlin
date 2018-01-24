@@ -2,7 +2,7 @@
 
 * Project 3 of the Android Developer Nanodegree
 
-![Alt text](https://raw.githubusercontent.com/sudhirkhanger/baking-app-kotlin/master/device-2018-01-24-065450.png)![Alt text](https://raw.githubusercontent.com/sudhirkhanger/baking-app-kotlin/master/device-2018-01-24-065537.png)![Alt text](https://raw.githubusercontent.com/sudhirkhanger/baking-app-kotlin/master/device-2018-01-24-065645.png)
+![Alt text](https://raw.githubusercontent.com/sudhirkhanger/baking-app-kotlin/master/device-2018-01-24-065450.png | width=100)![Alt text](https://raw.githubusercontent.com/sudhirkhanger/baking-app-kotlin/master/device-2018-01-24-065537.png | width=100)![Alt text](https://raw.githubusercontent.com/sudhirkhanger/baking-app-kotlin/master/device-2018-01-24-065645.png | width=100)
 
 # Udacity Honor Code
 
