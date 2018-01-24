@@ -2,6 +2,8 @@
 
 * Project 3 of the Android Developer Nanodegree
 
+![Alt text](https://raw.githubusercontent.com/sudhirkhanger/baking-app-kotlin/master/device-2018-01-24-065450.png)
+
 # Udacity Honor Code
 
     I confirm that this submission is my own work. I have not used code from 
