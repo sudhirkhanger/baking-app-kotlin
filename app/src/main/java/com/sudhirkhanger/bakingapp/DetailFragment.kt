@@ -38,7 +38,7 @@ import java.io.Serializable
 class DetailFragment : Fragment() {
 
     companion object {
-        public const val KEY_INGREDIENTS = "key_ingredients"
+        const val KEY_INGREDIENTS = "key_ingredients"
     }
 
     lateinit var detailRecyclerView: RecyclerView
@@ -82,17 +82,12 @@ class DetailFragment : Fragment() {
 
     private fun convertRecipeToList(recipe: Recipe): MutableList<Any> {
         val list = mutableListOf<Any>()
-
         (0 until recipe.ingredients.size).forEach { list.add(recipe.ingredients[it]) }
         (0 until recipe.steps.size).forEach { list.add(recipe.steps[it]) }
-
         return list
     }
 
     private fun convertRecipeToIngredientList(recipe: Recipe) {
-//        val list = mutableListOf<Any>()
-//        (0 until recipe.ingredients.size).forEach { list.add(recipe.ingredients[it]) }
-
         val ingredientJson = Gson().toJson(recipe)
 
         val pref = PreferenceManager.getDefaultSharedPreferences(activity)
