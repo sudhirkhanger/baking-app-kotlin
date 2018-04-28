@@ -37,7 +37,7 @@ class RecipeAdapter(val recipes: MutableList<Recipe>,
         holder.bindRecipe(recipes[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecipeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val view = LayoutInflater.from(parent?.context)
                 .inflate(R.layout.recipe_list_item, parent, false)
         return RecipeViewHolder(view, itemClick)

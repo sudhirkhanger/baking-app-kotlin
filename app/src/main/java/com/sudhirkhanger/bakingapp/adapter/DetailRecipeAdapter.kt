@@ -39,7 +39,7 @@ class DetailRecipeAdapter(private val items: MutableList<Any>,
         operator fun invoke(step: Steps)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         when (viewType) {
             INGREDIENT_VIEW -> {
@@ -56,7 +56,7 @@ class DetailRecipeAdapter(private val items: MutableList<Any>,
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder?.itemViewType) {
             INGREDIENT_VIEW -> {
                 val ingredientHolder = holder as IngredientViewHolder
